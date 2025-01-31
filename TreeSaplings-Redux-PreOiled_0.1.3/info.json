@@ -1,0 +1,14 @@
+{
+  "name": "TreeSaplings-Redux-PreOiled",
+  "version": "0.1.3",
+  "title": "Tree Saplings Redux PreOiled",
+  "author": "Original by LukeM, Hacked to 1.1 by JustJinxed, RevivePatch by rocketridah, Redux by FuryoftheStars, Edit by GTrista",
+  "contact": "",
+  "homepage": "",
+  "description": "A small mod that adds craftable saplings that grow into vanilla trees, and a way to farm them.\n\nBased on the 'Redux' version. This one moves the production to not require Oil products.",
+  "factorio_version": "2.0",
+  "dependencies": ["base >= 2.0",
+						"! TreeSaplings-Revisted", 
+						"! TreeSaplings-Revisted-RevivePatch", 
+						"! TreeSaplings-Redux"]
+}

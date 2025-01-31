@@ -1,0 +1,10 @@
+{
+	"entity":
+	[
+		["sapling", "sapling-stage-1"]
+	],
+	"item":
+	[
+		["sapling", "sapling-grow-bag"]
+	]
+}

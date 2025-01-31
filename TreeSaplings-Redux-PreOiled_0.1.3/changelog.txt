@@ -1,0 +1,260 @@
+---------------------------------------------------------------------------------------------------
+Version: 0.1.3
+Date: 2024/10/28
+  Changes:
+  - Allowed Productivity in the recipe for Nitric Acid, Potassium Phosphate Powder and Fertilizer
+---------------------------------------------------------------------------------------------------
+Version: 0.1.2
+Date: 2024/10/27
+  Bugfix:
+  - Changed the technology requirements to 50 Automation and Logistic Science instead of mining a dead tree (Reason: If anyone wanted to start running a game without trees, there are no trees. Even the dead ones. This would lock this technology forever)
+---------------------------------------------------------------------------------------------------
+Version: 0.1.1
+Date: 2024/10/21
+  Bugfix:
+  - Corrected the cost of Fertilizer to 1 Wood instead of 4 Wood
+---------------------------------------------------------------------------------------------------
+Version: 0.1.0
+Date: 2024/10/21
+  Changes:
+  - Updated for Factorio 2.0
+---------------------------------------------------------------------------------------------------
+Version: 0.0.2
+Date: 2024/08/11
+  Changes:
+  - Ammonia removed
+  - Potassium Phosphate Powder introduced, Recipe: 50x Water, 5x Stone, 1x Coal, Output count: 20, Recipe time: 60s, Stack size: 100
+    Recipes:
+    - Nitric Acid: 200x Water + 1x Landfill -> 40x Water + 1x Wood, Output amount decreased (100x -> 40x), Recipe time decreased (25s -> 20s)
+    - Fertilizer: 10x Ammonia + 2x Nitric Acid -> 10x Nitric Acid + 1x Potassium Phosphate Powder, Recipe time increased (2.5s -> 5s)
+    - Sapling Grow Bag: 2x Wood + 1x Fertilizer -> 1x Wood + 1x Fertilizer, Stack size reduced (20x -> 10x)
+
+    Technology requirements (Fertilizer):
+    - Prerequisite Fertilizer changed: "Fluid Handling" and "Landfill" -> "Oil Processing"
+    - Recipe unlock for Chemical plant removed
+---------------------------------------------------------------------------------------------------
+Version: 0.0.1
+Date: 2024/08/04
+  Changes:
+  - Preoiled version, which doesn't require oil products to produce tree planters, but it requires overall more wood. It is still possible to loop in the input resources to create infinite trees without productivity modules.
+    - Changed recipes:
+      - Sapling Grow Bag: 1x Wood + 1x Fertilizer -> 2x Wood + 1x Fertilizer, Stack size increased (10x -> 20x)
+      - Fertilizer: 15x Ammonia + 15x Nitric Acid -> 10x Ammonia + 2x Nitric Acid, Output count reduced (5x -> 1x), Recipe Time reduced (10s -> 2.5s), Stack size increased (50x -> 100x)
+      - Ammonia: 20x Water + 10x Nitric Acid -> 20x Water + 1x Wood, Output amount increased (10x -> 20x), Recipe Time increased (2s -> 5s)
+      - Nitric Acid: 20x Water + 10x Petroleum Gas -> 200x Water + 1x Landfill, Output amount increased (10x -> 100x), Recipe Time increased (2s -> 25s)
+
+    - Changes to Fertilizer technology:
+      - Prerequisite Fertilizer changed: "Oil Processing" -> "Fluid Handling" and "Landfill"
+      - Time per science pack increased (10s -> 20s)
+      - Recipe for Chemical plant unlocked
+---------------------------------------------------------------------------------------------------
+Version: 1.0.6 (old)
+Date: 2023/03/04
+  Additions:
+    - Added support for "Restrictions on Artificial Tiles" mod
+      - Registered "planter" and "sapling-placer" entities with the mod so they can get the artificial_tile_collision_layer
+      - Added "RestrictionsOnArtificialTiles_ExcludeFromPlacer" property to sapling stages 2-5 to keep them from messing up that mod's tree-root placement
+  Changes:
+    - Changed some wording on setting descriptions
+  Bugfixes:
+    - Fixed a missing minus sign (-) on the emissions_per_second value for planted seeds (means the seeds were creating pollution before....)
+---------------------------------------------------------------------------------------------------
+Version: 1.0.5
+Date: 2022/08/02
+  Bugfixes:
+    - Apparently I introduced a desync for MP games with my last "fix", so here's another attempt at fixing the "invalid key to 'next'" error
+---------------------------------------------------------------------------------------------------
+Version: 1.0.4
+Date: 2022/07/08
+  Changes:
+    - Updated the fix from 1.0.3 for the "invalid key to 'next'" error to be automatic.
+      - Every time you load the save, the index value being used as the "key to 'next'" is reset to nil, so if you get the error during play, simply reloading from your latest save *should* fix it.  I'll keep looking for a better fix.
+---------------------------------------------------------------------------------------------------
+Version: 1.0.3
+Date: 2022/07/08
+    Bugfixes:
+      - Removed a use of table.deepcopy() from control.lua (as it requires the "util" file, which I removed the reference to last update... whoops :P)
+      - Changed the fix for "invalid key to 'next'" error regarding planters
+        - The mod will now reset the index it uses for the next statement if all planters are removed
+---------------------------------------------------------------------------------------------------
+Version: 1.0.2
+Date: 2022/07/07
+  Changes:
+    - Saplings can now be pipetted to get the sapling grow bag
+  Fixes:
+    - Added missing entry to change log for v1.0.0 under Balance: Modified dead/dry tree variants to give them a consistent mining result of 2 wood
+    - Removed core game "util" file requirement from control.lua (wasn't using it)
+    - Removed duplicate on_tick event registration in control.lua (didn't harm anything, but was unnecessary)
+  Bugfixes:
+    - Changed default force for the planter from neutral to player
+    - Added a fix for "invalid key to 'next'" error regarding planters
+  Improvements:
+    - Changed the "create_entity" and "destroy" commands so their respective raise event properties are set to true
+    - Changed the sapling collision_mask to pull the default tree collision_mask and then remove "player-layer" instead of manually setting the values (future proofs it against the default collision_mask of trees being altered)
+    - Added event filters to event registrations (may give a slight UPS boost when a lot of entities that are unrelated to this mod are being built and/or mined at the same time)
+    - Changed code for determining planter output when a sapling dies in a planter to be simpler and more robust
+---------------------------------------------------------------------------------------------------
+Version: 1.0.1
+Date: 2022/05/31
+  Fixes:
+    - Fixed typo in info.json file
+    - Fixed date formatting in change log for 1.0.0
+---------------------------------------------------------------------------------------------------
+Version: 1.0.0
+Date: 2022/05/31
+  Features:
+    - Initial release of Redux version of the mod
+    - Saplings now have 6 growth stages: planted seed, sprout, seedling, sapling, "young" tree, then the adult full grown tree
+    - Saplings can now die in heavily polluted areas.  Manually planted saplings that die will be converted to a vanilla dead tree variant (I'm looking for a graphic artist to improve/replace these if you are interested!), while saplings growing in planters will result in reduced wood output for that run, depending on the sapling stage when it died
+    - New "UPS Friendly" mode that changes saplings in planters into an animation for the planter, completely removing planters from being something the code has to monitor, but disables a couple features and has it's own (purely cosmetic; see mod page or setting description) issues
+    - Rebalanced some recipe costs, giving a net effect of changing the petrol used to saplings produced ratio from 60:1 (manual planting) and 120:1 (for planters) to 6:1 (for both)
+  Minor Features:
+    - Planters can now be removed/destroyed while leaving the sapling in place
+    - Saplings now have a couple snap-to-grid placement options
+    - Includes migration scripts and other code for users of TreeSaplings-Revisted and TreeSaplings-Revisted-RevivePatch to migrate their current builds to this mod
+  Changes:
+    - Sapling grow bags are now used to plant saplings directly outside of a planter
+    - Moved sapling grow bag tech unlock to the first technology
+    - Removed sapling item and associated recipes and tech unlock
+    - Removed productivity modules for saplings; left the rest alone
+  Bugfixes:
+    - Planters no longer consume 1 extra grow bag from the input slot per crafting cycle
+    - Planters no longer cancel their current craft progress (thereby deleting the currently consumed grow bag) whenever you manually remove all extra grow bags from the input slot
+    - Planter crafting progress now stays consistent during the "growing" process, no longer jumping to 50% when an extra bag is inserted
+    - Planters (should) no longer be able to reach 100% crafting progress before a tree matures, thereby circumventing their random grow times
+    - Saplings will now reliably appear at planters that only have 1 grow bag in them
+  Additions:
+    - Added graphics for new sapling stages 1 & 2, using a scaled down version of the old graphics for stage 3 and an unaltered version for stage 4, and scaled down vanilla tree graphics for stage 5 (I'm looking for a graphic artist to improve/replace these if you are interested!)
+    - Added settings for min/max sapling grow time
+    - Added setting for number of ticks to spread updating planters over (allows for performance tuning on different computers)
+    - Added setting for allowing saplings to be placed snap-to-grid, snap-to-tile-center, or no snapping (like landmines)
+    - Added setting for switching to "UPS Friendly" mode
+  Balance:
+    - Fertilizer recipe: Decreased Ammonia and Nitric Acid costs from 30 each to 15 each; increased fertilizer yield from 1 to 5; increased time from 2 secs to 10 secs
+    - Sapling grow bag: Replaced sapling requirement with 1 unit of wood
+    - Decreased pollution absorption of saplings from 0.018 (18x that of a vanilla tree) to 0.000001, 0.00008, 0.00022, 0.00042, & 0.00068 for sapling stages 1-5, respectively.  Taking into account how long of the overall grow time the sapling is at each stage, this averages out to a pollution absorption of ~0.000311
+    - Increased default min & max grow times from 1 & 11 (6 min avg) to 14 & 21 (17.5 min avg)(equivalent of 2-3 in-game days)
+    - Modified dead/dry tree variants to give them a consistent mining result of 2 wood
+  Improvements:
+    - Massive code rewrite that increases mod performance by upwards of 20x
+    - Code no longer loops over every sapling and instead stores them based on the tick they reach the next stage, allowing faster indexing and processing of only what's needed this tick
+    - Changed how it loops through and checks available planters
+---------------------------------------------------------------------------------------------------
+Version: 0.3.3
+Date: 26. 07. 2021
+  Changes:
+    - Productivity modules accepted for saplings, ammonia, nitric acid, and ammonium nitrate
+    - Large performance optimizations for large farms
+---------------------------------------------------------------------------------------------------
+Version: 0.3.2
+Date: 25. 07. 2021
+  Changes:
+    - Fix planters not working when placed by bots, copy/paste, or other mods
+---------------------------------------------------------------------------------------------------
+Version: 0.3.1
+Date: 28. 01. 2021
+  Changes:
+    - First time naming convention fix
+---------------------------------------------------------------------------------------------------
+Version: 0.3.0
+Date: 27. 01. 2021
+  Changes:
+    - Updated to 1.1.19 (Mod site broke this version)
+---------------------------------------------------------------------------------------------------
+Version: 0.2.4
+Date: 24. 03. 2020
+  Changes:
+    - Updated to 0.18.x
+---------------------------------------------------------------------------------------------------
+Version: 0.2.3
+Date: 28. 02. 2019
+  Changes:
+    - Updated to 0.17.x
+    - Changed science pack counts to better match the vanilla game
+    - Improved the sapling entity graphics a bit
+  Additions:
+    - Added German localisation by Fusselwurm (thanks :D)
+---------------------------------------------------------------------------------------------------
+Version: 0.2.2
+Date: 16. 12. 2017
+  Changes:
+    - Updated to 0.16.x
+  Improvements:
+    - Planters now correctly show products finished
+---------------------------------------------------------------------------------------------------
+Version: 0.2.1
+Date: 02. 12. 2017
+  Bugfixes:
+    - Now checks for validity of entities before using them as other mods may delete them without triggering an event
+  Improvements:
+    - Made some small code neatness and efficiency changes (although performance has decreased overall due to validity checking)
+    - Slightly improved planter graphics
+    - Progress bars in planters now show 50% while growing saplings
+---------------------------------------------------------------------------------------------------
+Version: 0.2.0
+Date: 19. 11. 2017
+  Additions:
+    - Added a Planter and Sapling grow bag which can be used to automate wood farming (might add support for other mods to add more recipes later)
+    - Added a technology to research automated wood farming
+  Improvements:
+    - Store a pointer to entities being tracked rather than their location, which should be slightly faster
+    - Remove saplings from tracking when they are destroyed rather than checking if they are still there when growing
+---------------------------------------------------------------------------------------------------
+Version: 0.1.10
+Date: 30. 06. 2017
+  Bugfixes:
+    - Multiplied all the fluid values by 10, to match the rest of the 0.15 fluid changes
+---------------------------------------------------------------------------------------------------
+Version: 0.1.9
+Date: 14. 05. 2017
+  Improvements:
+    - Removed any # operators because I've heard that they iterate through the table to find the count, rather than just keeping track of the count (please let me know if you know more about this)
+---------------------------------------------------------------------------------------------------
+Version: 0.1.8
+Date: 14. 05. 2017
+  Improvements:
+    - Changed the format of the sapling data to allow it to be sorted
+    - More efficient sapling growth checking
+    - Moved sapling data from global.ts.growing to global.growing as each mod now has its own global table
+---------------------------------------------------------------------------------------------------
+Version: 0.1.7
+Date: 03. 05. 2017
+  Bugfixes:
+    - Fixed issue with item / fluid / entity names caused by change to locale format
+---------------------------------------------------------------------------------------------------
+Version: 0.1.6
+Date: 02. 05. 2017
+  Changes:
+    - Updated to 0.15.x
+    - Saplings no longer collide with the player
+---------------------------------------------------------------------------------------------------
+Version: 0.1.5
+Date: 03. 11. 2016
+  Changes:
+    - Updated to 0.14.x
+---------------------------------------------------------------------------------------------------
+Version: 0.1.4
+Date: 16. 10. 2016
+  Changes:
+    - Updated to 0.13.x
+    - Replaced my bad graphics with the much better ones made by Shrooblord (Thanks!)
+---------------------------------------------------------------------------------------------------
+Version: 0.1.3
+Date: 21. 05. 2016
+  Improvements:
+    - Changed sapling growth code so that the time to grow is calculated when it is placed, rather than every second until it grows
+---------------------------------------------------------------------------------------------------
+Version: 0.1.2
+Date: 22. 03. 2016
+  Bugfixes:
+    - Fixed breaking saplings as before they would not stop growing even after destroyed
+---------------------------------------------------------------------------------------------------
+Version: 0.1.1
+Date: 22. 03. 2016
+  Changes:
+    - Saplings now take a random amount of time to grow
+---------------------------------------------------------------------------------------------------
+Version: 0.1.0
+Date: 22. 03. 2016
+  Additions:
+    - Added a Sapling which after some time grows into a vanilla tree
