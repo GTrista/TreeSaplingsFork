@@ -466,13 +466,15 @@ for i = 1, 6 do
 	young_tree.selection_box = {{young_tree.selection_box[1][1] * 0.7, young_tree.selection_box[1][2] * 0.7}, {young_tree.selection_box[2][1] * 0.7, young_tree.selection_box[2][2] * 0.7}}
 	for _, variation in pairs(young_tree.variations) do
 		for _, component in pairs(variation) do
-			component.scale = (component.scale or 1) * 0.7
-			if component.shift then
-				component.shift = {component.shift[1] * 0.7, component.shift[2] * 0.7}
-			end
-			if component.hr_version then
-				component.hr_version.scale = (component.hr_version.scale or 1) * 0.7
-				component.hr_version.shift = {component.hr_version.shift[1] * 0.7, component.hr_version.shift[2] * 0.7}
+			if type(component) == "table" then
+				component.scale = (component.scale or 1) * 0.7
+				if component.shift then
+					component.shift = {component.shift[1] * 0.7, component.shift[2] * 0.7}
+				end
+				if component.hr_version then
+					component.hr_version.scale = (component.hr_version.scale or 1) * 0.7
+					component.hr_version.shift = {component.hr_version.shift[1] * 0.7, component.hr_version.shift[2] * 0.7}
+				end
 			end
 		end
 	end
